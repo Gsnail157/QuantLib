@@ -23,21 +23,31 @@ class AlphaVantage:
             data = r.json()
 
             # Unwrap load
-            metaData = data['Meta Data']
+            #metaData = data['Meta Data']
             body = data["Time Series (Daily)"]
             dataframe = pd.DataFrame()
+            # dataframe = pd.to_datetime(dataframe.index)
 
             for attribute, values in body.items():
                 datetime_obj = dt.strptime(attribute, "%Y-%m-%d")
                 newRow = pd.DataFrame(values, index=[datetime_obj])
                 dataframe = pd.concat([dataframe, newRow])
-
+            
+            col_name_mappings = {
+                "1. open": "OPEN",
+                "2. high": "HIGH",
+                "3. low": "LOW",
+                "4. close": "CLOSE",
+                "5. volume": "VOLUME"
+            }
+            
+            dataframe.rename(columns= col_name_mappings, inplace=True)
             dataframe.to_csv(fullPath)
             return dataframe
             
         else:
             print(f"{filename} data already exists on disk")
-            data = pd.read_csv(fullPath)
+            data = pd.read_csv(fullPath, index_col=0)
             return data
 
 
