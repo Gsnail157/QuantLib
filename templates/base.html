@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}{% endblock %} - Portfolio Optimizer</title>
+    {% endblock %}
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <div class="content">
+            <div class="navigation">
+                {% block navigation %} {% endblock %}
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="footer">
+      {% block footer %}
+      &copy; Copyright 2024 by <a href="https://garyjwang.com/">Gary J. Wang</a>.
+      {% endblock %}
+    </div>
+    <script src="{{ url_for('static', filename='javascript/dashboard.js') }}"></script>
+</body>
+</html>

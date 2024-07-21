@@ -1,0 +1,40 @@
+/* Add your CSS styles here */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.main {
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    flex-shrink: 0;
+    color: black;
+    text-align: center;
+    padding: 10px;
+}
+
+.content {
+    background-color: white;
+    padding: 20px;
+    margin: 0px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    height: 75%;
+    width: 75%;
+}
+
+.table {
+    margin-bottom: 100px;
+}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block navigation %}
+Dashboard:
+{% endblock %}
+
+{% block content%} 
+<div class="table">
+    Inputs:
+    <br>
+    <button class="add", id="add">Add another security</button>
+    <button class="calculate", id="calculate">Calculate</button>
+    <label>Save:
+        <input type="checkbox" name="save", id="save">
+    </label>
+    <label>Data Date Range
+        <input type="date" name="date-start", id="start">
+        -
+        <input type="date" name="date-end", id="end">
+    </label>
+
+    <br>
+    <div class="rows" id="rows">
+        <div class="row" class="row">
+            <label>Ticker:
+                <input name="ticker" type="text" class="ticker">
+            </label>
+            <label>Weight:
+                <input name="weight" type="number" class="weight">
+            </label>
+            <label>Data Source:
+                <select name="optionMenu" class="optionMenu">
+                    <option value="">--Please choose an option--</option>
+                    <option value="Alpha Vantage">Alpha Vantage</option>
+                    <option value="Bloomberg">Bloomberg</option>
+                    <option value="Yahoo Finance">Yahoo Finance</option>
+                </select>
+                <button onclick="delete_row(this)">Delete Row</button>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="Chart">
+    Charts:
+</div>
+<div class="History">
+    Past:
+</div>
+{% endblock %}
