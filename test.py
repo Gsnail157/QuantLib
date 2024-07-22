@@ -4,11 +4,13 @@ from alpha import AlphaVantage
 from equity import Equity
 from preprocessing import data_preprocessing, correlation_table
 import itertools
+from fred import FredAPI
 
 def main():
     # LOAD API KEYS
     load_dotenv()
     key = os.getenv('ALPHAVANTAGE')
+    key2 = os.getenv("FRED")
 
     alpha = AlphaVantage(key)
     ibm_data = alpha.daily("IBM")
@@ -34,8 +36,12 @@ def main():
     print(ticker_combinations)
     weights = [50, 25, 25]
 
-    for stock in equities:
-        print(stock.avg_expected_return)
+    fred =  FredAPI(key2)
+    data = fred.get_risk_free_rate()
+    print(data)
+
+    # for stock in equities:
+    #     print(stock.avg_expected_return)
 
 
     return

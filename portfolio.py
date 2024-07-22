@@ -9,7 +9,6 @@ from preprocessing import data_preprocessing, correlation_table
 import itertools
 import math
 
-
 class Portfolio:
     def __init__(self, data) -> None:
         self.user_data = data
@@ -65,9 +64,6 @@ class Portfolio:
             std = self.securities[tick]["data"].std
             avg_variance += (weight**2) * var
             weighted_std *= (weight * std)
-        print(avg_variance)
-        print(weighted_std)
-        print(correlation_total)
         port_var = (avg_variance + weighted_std * correlation_total)
         return math.sqrt(port_var)
 

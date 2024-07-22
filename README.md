@@ -3,7 +3,7 @@ Quantitative Finance Web App
 
 ## TO-DO
 Backend:
-- Risk Free Rate API
+- ~Risk Free Rate API~
 - New Data Source
 - Database
 - Sharpe Ratio
