@@ -8,6 +8,9 @@ Backend:
 - Database
 - Sharpe Ratio
 - Create SQL queries
+- Target Return Portfolio
+- Minimum Risk Portfolio
+- Target Risk Portfolio
 
 Frontend:
 - Data Time Frame selection (daily, monthly, yearly)

@@ -18,8 +18,15 @@ class AlphaVantage:
 
         if not fileExists:
             # Make Request
-            url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&datatype=json&symbol={ticker}&apikey={self.key}'
-            r = req.get(url)
+            base_url = f'https://www.alphavantage.co/query'
+            params = {
+                'function': "TIME_SERIES_DAILY",
+                'outputsize': "full",
+                'datatype': "json",
+                'symbol': ticker,
+                'apikey': self.key
+            }
+            r = req.get(base_url, params=params)
             data = r.json()
 
             # Unwrap load
@@ -42,6 +49,7 @@ class AlphaVantage:
             }
             
             dataframe.rename(columns= col_name_mappings, inplace=True)
+            dataframe.set_index(dataframe.columns[0], inplace=True)
             dataframe.to_csv(fullPath)
             return dataframe
             
