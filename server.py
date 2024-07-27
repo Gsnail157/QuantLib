@@ -5,8 +5,20 @@ from flask import request
 from flask import Response
 from portfolio import Portfolio
 import math
+import os
+from dotenv import load_dotenv
+import psycopg2
+
+load_dotenv()
 
 app = Flask(__name__)
+db_url = os.getenv("RENDER_POSTGRES_URL")
+db = psycopg2.connect(db_url)
+
+if db:
+    print("Connection is Established")
+else:
+    print("No Connection Made")
 
 valid_data_source = ["Alpha Vantage"]
 
