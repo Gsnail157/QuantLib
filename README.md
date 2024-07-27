@@ -16,6 +16,9 @@ Frontend:
 
 Venv Setup:
 ```
+python -m venv /path/to/new/virtual/environment
+```
+```
 source <venv>/bin/activate
 ```
 or
