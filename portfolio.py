@@ -78,27 +78,24 @@ class Portfolio:
 
     def target_return(self, target_return:float) -> None:
         ones = np.ones(len(target_return))
-        returns = np.array([exp_return.avg_expected_return for exp_return in equities])
+        returns = np.array([exp_return.avg_expected_return for exp_return in self.user_data])
         a = np.array([returns, ones])
         b = np.array([target_return, 1])
         weights = np.linalg.solve(a,b)
 
-        if not np.allclose(np.dot(a, x), b):
+        if not np.allclose(np.dot(a, weights), b):
             return "Something went wrong"
         else:
             return weights
 
     def target_beta(self, target_beta:float) -> None:
         ones = np.ones(len(target_beta))
-        betas = np.array([exp_return.beta for exp_return in equities])
+        betas = np.array([exp_return.beta for exp_return in self.user_data])
         a = np.array([betas, ones])
         b = np.array([target_beta, 1])
         weights = np.linalg.solve(a,b)
 
-        if not np.allclose(np.dot(a, x), b):
+        if not np.allclose(np.dot(a, weights), b):
             return "Something went wrong"
         else:
-            return weights
-    
-
-    
+            return weights 
