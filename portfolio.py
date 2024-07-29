@@ -80,7 +80,7 @@ class Portfolio:
         ones = np.ones(len(target_return))
         returns = np.array([exp_return.avg_expected_return for exp_return in self.user_data])
         a = np.array([returns, ones])
-        b = np.array([target_return, 1])
+        b = np.array([target_return, 1.0])
         weights = np.linalg.solve(a,b)
 
         if not np.allclose(np.dot(a, weights), b):

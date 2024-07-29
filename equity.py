@@ -1,17 +1,31 @@
 import pandas as pd
 import numpy as np
 
-class Equity:
+class Security:
+    def __init__(self) -> None:
+        self.cusip = str
+        self.isin = str
+        self.asset_class = str
+
+class Equity(Security):
     def __init__(self, data:None) -> None:
-        self.data = data
-        self.avg_expected_return = None
-        self.variance = None
-        self.std = None
-        self.calculate()
-        
-    def calculate(self) -> None:
-        daily_return_array = np.array(self.data["PERCENT_CHANGE_CLOSE"])
-        self.avg_expected_return = daily_return_array.mean()
-        self.variance = daily_return_array.var()
-        self.std = daily_return_array.std()
-        return None
+        self.raw_data = data
+        self.data_source = str
+        self.ticker = str
+        self.full_name = str
+        self.description = str
+        self.sector = str
+        self.industry = str
+        self.country = str
+    
+    def expected_return(self) -> float:
+        percent_change_close = np.array(self.raw_data["PERCENT_CHANGE_CLOSE"])
+        return float(percent_change_close.mean())
+
+    def variance(self) -> float:
+        percent_change_close = np.array(self.raw_data["PERCENT_CHANGE_CLOSE"])
+        return float(percent_change_close.var())
+
+    def std(self) -> float:
+        percent_change_close = np.array(self.raw_data["PERCENT_CHANGE_CLOSE"])
+        return float(percent_change_close.std())
