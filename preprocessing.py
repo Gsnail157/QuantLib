@@ -17,5 +17,3 @@ def correlation_table(securities:list=None):
         aggerated[security.ticker] = df["PERCENT_CHANGE_CLOSE"]
     combined_df = pd.DataFrame(aggerated)
     return combined_df.corr()
-
-            

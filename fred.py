@@ -25,4 +25,3 @@ class FredAPI:
         file_type = 'json'
         data = self.time_series(series_id=series_id,limit=limit,sort_order=sort_order, file_type=file_type)
         return float(data['observations'][0]['value'])
-

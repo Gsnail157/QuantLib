@@ -1,7 +1,7 @@
 .env
 Data/
 __pycache__
-test.ipynb
+*.ipynb
 test.py
 .venv
 env

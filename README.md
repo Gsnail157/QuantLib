@@ -4,11 +4,11 @@ Quantitative Finance Web App
 ## TO-DO
 Backend:
 - ~Risk Free Rate API~
-- New Data Source
-- Database
-- Sharpe Ratio
+- Implement new Data Source API
+- Database Setup (Postgres)
+- ~Sharpe Ratio~
 - Create SQL queries
-- Target Return Portfolio
+- ~Target Return Portfolio~
 - Minimum Risk Portfolio
 - Target Risk Portfolio
 

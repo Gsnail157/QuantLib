@@ -42,8 +42,6 @@ def main():
 
     # for stock in equities:
     #     print(stock.avg_expected_return)
-
-
     return
 
 if __name__ == '__main__':

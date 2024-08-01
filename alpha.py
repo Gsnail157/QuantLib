@@ -11,14 +11,14 @@ class AlphaVantage:
         # Check if Data in already available on hard disk
         today = dt.today()
         today_string = today.strftime("%Y%m%d")
-        dataDirectory = os.getcwd() + 'Data'
+        dataDirectory = os.getcwd() + '\\Data'
         filename = f'{ticker}_DAILY_{today_string}.csv'
         fullPath = os.path.join(dataDirectory, filename)
         fileExists = os.path.exists(fullPath)
 
         if not fileExists:
             # Make Request
-            base_url = f'https://www.alphavantage.co/query'
+            base_url = 'https://www.alphavantage.co/query'
             params = {
                 'function': "TIME_SERIES_DAILY",
                 'outputsize': "full",
@@ -26,7 +26,7 @@ class AlphaVantage:
                 'symbol': ticker,
                 'apikey': self.key
             }
-            r = req.get(base_url, params=params)
+            r = req.get(base_url, params=params, timeout=10)
             data = r.json()
 
             # Unwrap load
@@ -57,7 +57,3 @@ class AlphaVantage:
             print(f"{filename} data already exists on disk")
             data = pd.read_csv(fullPath, index_col=0)
             return data
-
-
-
-

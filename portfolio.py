@@ -63,7 +63,7 @@ class Portfolio:
 
         Return Type: List
         '''
-        return (self.expected_return - risk_free_rate) / self.std
+        return (self.expected_return() - risk_free_rate) / self.std()
 
     def target_return(self, target_return:float=0) -> list:
         '''
