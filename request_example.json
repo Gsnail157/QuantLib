@@ -1,0 +1,29 @@
+{
+    "metadata": {
+        "save": false,
+        "start_date": "2020-07-19",
+        "end_date": "2024-07-19"
+    },
+    "data": [
+        {
+            "Ticker": "AAPL",
+            "Weight": 25,
+            "Source": "Alpha Vantage"
+        },
+        {
+            "Ticker": "TSLA",
+            "Weight": 25,
+            "Source": "Alpha Vantage"
+        },
+        {
+            "Ticker": "MSFT",
+            "Weight": 25,
+            "Source": "Alpha Vantage"
+        },
+        {
+            "Ticker": "IBM",
+            "Weight": 25,
+            "Source": "Alpha Vantage"
+        }
+    ]
+}
