@@ -1,16 +1,19 @@
+import math
 import numpy as np
 from preprocessing import correlation_table
 import itertools
-import math
 
 class Portfolio:
-    def __init__(self, securities:list=None, weights:list=[]) -> None:
+    '''
+    Portfolio Class 
+    '''
+    def __init__(self, securities:list=None, weights:list=None) -> None:
         self.securities = securities
         self.weights = weights
         self.correlation_table = correlation_table(securities)
         self.weights = weights
-    
-    def set_weights(self, weights:list=[]) -> None:
+
+    def set_weights(self, weights:list=None) -> None:
         '''
         Sets the weight of security in the portfolio. ORDER MATTERS
         '''
@@ -25,6 +28,9 @@ class Portfolio:
         return np.sqrt(self.variance())
     
     def expected_return(self) -> float:
+        '''
+        Calculates and return the expected return of the portfolio
+        '''
         expected_return = 0
         for security, weight in zip(self.securities, self.weights):
             total += security.expected_return * weight
@@ -73,8 +79,7 @@ class Portfolio:
 
         if not np.allclose(np.dot(a, weights), b):
             return "Something went wrong"
-        else:
-            return weights
+        return weights
 
     def target_beta(self, target_beta:float=0) -> list:
         '''
@@ -90,5 +95,14 @@ class Portfolio:
 
         if not np.allclose(np.dot(a, weights), b):
             return "Something went wrong"
-        else:
-            return weights 
+        return weights
+
+    def security_info(self) -> dict:
+        info = {}
+        for security in self.securities:
+            info[security.ticker] = {
+                "Expected Return": security.expected_return(),
+                "Variance": security.variance(),
+                "Standard Deviation": security.std()
+            }
+        return info

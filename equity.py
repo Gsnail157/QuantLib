@@ -8,6 +8,7 @@ class Security:
 
 class Equity(Security):
     def __init__(self, data:None) -> None:
+        super().__init__()
         self.raw_data = data["raw_data"]
         self.data_source = str
         self.ticker = data["ticker"]

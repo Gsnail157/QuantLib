@@ -11,7 +11,7 @@ class AlphaVantage:
         # Check if Data in already available on hard disk
         today = dt.today()
         today_string = today.strftime("%Y%m%d")
-        dataDirectory = os.getcwd() + '\\Data'
+        dataDirectory = os.getcwd() + 'Data'
         filename = f'{ticker}_DAILY_{today_string}.csv'
         fullPath = os.path.join(dataDirectory, filename)
         fileExists = os.path.exists(fullPath)

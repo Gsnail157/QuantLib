@@ -5,14 +5,17 @@ def data_preprocessing(data, start, end):
     select = data.loc[end:start]
     return select
 
-def correlation_table(securities):
+def correlation_table(securities:list=None):
+    '''
+    Creates a correlation table for each security provided
+
+    Return Type: Pandas DataFrame
+    '''
     aggerated = {}
-    for i in range(len(data)):
-        df = data[i]
-        aggerated[tickers[i]] = df["PERCENT_CHANGE_CLOSE"]
+    for security in securities:
+        df = security.raw_data
+        aggerated[security.ticker] = df["PERCENT_CHANGE_CLOSE"]
     combined_df = pd.DataFrame(aggerated)
     return combined_df.corr()
-
-
 
             

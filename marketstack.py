@@ -17,7 +17,7 @@ class MarketStack:
             'limit': 'blank',
             'offset': 'blank'
         }
-        res = req.get(self.base_url, params=params)
+        res = req.get(self.base_url, params=params, timeout=10)
         return res.json()
 
     

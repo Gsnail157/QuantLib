@@ -29,7 +29,7 @@ def main():
         equity = Equity(processed)
         equities.append(equity)
     
-    table = correlation_table(processed_data, tickers)
+    table = correlation_table(processed_data)
     print(table)
     print(table.values.flatten().prod())
     ticker_combinations = list(itertools.combinations(table.columns, 2))

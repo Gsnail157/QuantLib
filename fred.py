@@ -14,7 +14,7 @@ class FredAPI:
             "sort_order": sort_order,
             "file_type": file_type
         }
-        res = requests.get(url, params=params)
+        res = requests.get(url, params=params, timeout=10)
         data = res.json()
         return data
 
