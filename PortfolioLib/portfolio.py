@@ -1,17 +1,31 @@
 import math
-import numpy as np
-from preprocessing import correlation_table
 import itertools
+
+import numpy as np
+
+from utils.preprocessing import correlation_table
+from PortfolioLib.equity import Equity
 
 class Portfolio:
     '''
-    Portfolio Class 
+    Portfolio Class
     '''
     def __init__(self, securities:list=None, weights:list=None) -> None:
         self.securities = securities
         self.weights = weights
         self.correlation_table = correlation_table(securities)
         self.weights = weights
+    
+    def __add__(self, other) -> None:
+        '''
+        Add equity or portfolio to a portfolio
+        '''
+        if isinstance(other, Equity):
+            pass
+        elif isinstance(other, Portfolio):
+            pass
+        else:
+            return Portfolio()
 
     def set_weights(self, weights:list=None) -> None:
         '''
@@ -57,7 +71,7 @@ class Portfolio:
         
         return (avg_variance + weighted_std * correlation_total)
     
-    def sharpeRatio(self, risk_free_rate:float=0) -> float:
+    def sharpe_ratio(self, risk_free_rate:float=0) -> float:
         '''
         Calculates and returns the sharpe ratio of the portfolio given the risk free rate
 
@@ -98,6 +112,11 @@ class Portfolio:
         return weights
 
     def security_info(self) -> dict:
+        '''
+        Returns information about each security in the portfolio
+
+        Return Type: Dict
+        '''
         info = {}
         for security in self.securities:
             info[security.ticker] = {
@@ -106,3 +125,19 @@ class Portfolio:
                 "Standard Deviation": security.std()
             }
         return info
+
+    def minimum_risk(self) -> list:
+        '''
+        Creates a minimum risk portfolio with the given securities
+
+        Return Type: List
+        '''
+        return list
+
+    def target_risk(self) -> list:
+        '''
+        Creates a portfolio given a target standard deviation
+
+        Return Type: List
+        '''
+        return list

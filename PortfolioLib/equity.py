@@ -17,7 +17,7 @@ class Equity(Security):
         self.sector = str
         self.industry = str
         self.country = str
-    
+
     def expected_return(self) -> float:
         percent_change_close = np.array(self.raw_data["PERCENT_CHANGE_CLOSE"])
         return float(percent_change_close.mean())

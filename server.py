@@ -9,11 +9,13 @@ from flask import Response
 from dotenv import load_dotenv
 #import psycopg2
 
-from portfolio import Portfolio
-from fred import FredAPI
-from alpha import AlphaVantage
-from equity import Equity
-from preprocessing import data_preprocessing
+from PortfolioLib.portfolio import Portfolio
+from PortfolioLib.equity import Equity
+from apis.Data.fred import FredAPI
+from apis.Data.alpha import AlphaVantage
+from apis.Data.marketstack import MarketStack
+from apis.Data.eodhd import EODhd
+from utils.preprocessing import data_preprocessing
 
 load_dotenv()
 app = Flask(__name__)
@@ -24,6 +26,8 @@ valid_data_source = ["Alpha Vantage"]
 db_url = os.getenv("RENDER_POSTGRES_URL")
 FREDAPI_KEY = os.getenv("FRED")
 ALPHAVANTAGE_KEY = os.getenv("ALPHAVANTAGE")
+MARKETSTACK_KEY = os.getenv("MARKETSTACK")
+EODHD_KEY = os.getenv("EODHD")
 
 # Create API Instances
 # db_url = os.getenv("RENDER_POSTGRES_URL")
@@ -36,6 +40,8 @@ ALPHAVANTAGE_KEY = os.getenv("ALPHAVANTAGE")
 
 fred = FredAPI(FREDAPI_KEY)
 alphaVantage = AlphaVantage(ALPHAVANTAGE_KEY)
+market_stack = MarketStack(MARKETSTACK_KEY)
+eodhd = EODhd(EODHD_KEY)
 
 @app.route('/')
 def main():
