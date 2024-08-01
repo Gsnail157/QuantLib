@@ -48,10 +48,10 @@ class AlphaVantage:
                 "5. volume": "VOLUME"
             }
             
-            dataframe.rename(columns= col_name_mappings, inplace=True)
-            dataframe.set_index(dataframe.columns[0], inplace=True)
+            dataframe.rename(columns=col_name_mappings, inplace=True)
             dataframe.to_csv(fullPath)
-            return dataframe
+            clean_data = pd.read_csv(fullPath, index_col=0)
+            return clean_data
             
         else:
             print(f"{filename} data already exists on disk")

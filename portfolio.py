@@ -1,56 +1,41 @@
-import pandas as pd
 import numpy as np
-from datetime import datetime as dt
-from equity import Equity
-from alpha import AlphaVantage
-from dotenv import load_dotenv
-import os
-from preprocessing import data_preprocessing, correlation_table
+from preprocessing import correlation_table
 import itertools
 import math
 
 class Portfolio:
-    def __init__(self, data) -> None:
-        self.user_data = data
-        self.expected_return = None
-        self.sharpe_ratio = None
-        self.variance = None
-        self.std = None
-        self.securities = {}
-        self.tickers = []
-        self.start_date = self.user_data["metadata"]["start_date"]
-        self.end_date = self.user_data["metadata"]["end_date"]
-        self.correlation_table = None
-        self.cal_security_data()
+    def __init__(self, securities:list=None, weights:list=[]) -> None:
+        self.securities = securities
+        self.weights = weights
+        self.correlation_table = correlation_table(securities)
+        self.weights = weights
+    
+    def set_weights(self, weights:list=[]) -> None:
+        '''
+        Sets the weight of security in the portfolio. ORDER MATTERS
+        '''
+        self.weights = weights
 
-    def cal_security_data(self) -> None:
-        processed_data = []
-        for row in self.user_data["data"]:
-            source = row["Source"]
-            weight = int(row["Weight"])
-            ticker = row["Ticker"]
-            raw_data = None
-            self.tickers.append(ticker)
+    def std(self) -> float:
+        '''
+        Calculates and returns the standard deviation of the portfolio
 
-            if (source == "Alpha Vantage"):
-                load_dotenv()
-                key = os.getenv('ALPHAVANTAGE')
-                alpha = AlphaVantage(key)
-                raw_data = alpha.daily(ticker)
-                processed = data_preprocessing(raw_data, self.start_date, self.end_date)
-                processed_data.append(processed)
-                equity = Equity(processed)
-                self.securities[ticker] = {"Weight": weight, "data": equity}
-        self.correlation_table = correlation_table(processed_data, self.tickers)
-        return
+        Return Type: Float
+        '''
+        return np.sqrt(self.variance())
+    
+    def expected_return(self) -> float:
+        expected_return = 0
+        for security, weight in zip(self.securities, self.weights):
+            total += security.expected_return * weight
+        return expected_return
+    
+    def variance(self) -> float:
+        '''
+        Calculates and returns the variance of the portfolio
 
-    def sharpeRatio(self) -> float:
-        pass
-
-    def report(self) -> None:
-        pass
-
-    def cal_std(self) -> None:
+        Return Type: Float
+        '''
         avg_variance = 0
         weighted_std = 2
         correlation_total = 1
@@ -58,27 +43,30 @@ class Portfolio:
         for ticker1, ticker2 in ticker_combinations:
             correlation_total *= (self.correlation_table.loc[ticker1,ticker2])
 
-        for tick in self.tickers:
-            weight = ((self.securities[tick]["Weight"]) / 100)
-            var = self.securities[tick]["data"].variance
-            std = self.securities[tick]["data"].std
-            avg_variance += (weight**2) * var
+        for weight, security in zip(self.weights, self.securities):
+            var = security.variance()
+            std = security.std()
+            avg_variance += (math.pow(weight, 2) * var)
             weighted_std *= (weight * std)
-        port_var = (avg_variance + weighted_std * correlation_total)
-        return math.sqrt(port_var)
+        
+        return (avg_variance + weighted_std * correlation_total)
+    
+    def sharpeRatio(self, risk_free_rate:float=0) -> float:
+        '''
+        Calculates and returns the sharpe ratio of the portfolio given the risk free rate
 
-    def cal_expected_return(self) -> None:
-        port_expected_return = 0
-        for ticker in self.tickers:
-            weight = self.securities[ticker]["Weight"]
-            expected_return = (self.securities[ticker]["data"]).avg_expected_return
-            port_expected_return += ((weight / 100) * expected_return)
+        Return Type: List
+        '''
+        return (self.expected_return - risk_free_rate) / self.std
 
-        return port_expected_return
+    def target_return(self, target_return:float=0) -> list:
+        '''
+        Returns the weight of each security given a target return for the portfolio
 
-    def target_return(self, target_return:float) -> None:
+        Return Type: List
+        '''
         ones = np.ones(len(target_return))
-        returns = np.array([exp_return.avg_expected_return for exp_return in self.user_data])
+        returns = np.array([security.expected_return() for security in self.securities])
         a = np.array([returns, ones])
         b = np.array([target_return, 1.0])
         weights = np.linalg.solve(a,b)
@@ -88,9 +76,14 @@ class Portfolio:
         else:
             return weights
 
-    def target_beta(self, target_beta:float) -> None:
+    def target_beta(self, target_beta:float=0) -> list:
+        '''
+        Returns the weight of each security given a target return for the portfolio
+
+        Return Type: List
+        '''
         ones = np.ones(len(target_beta))
-        betas = np.array([exp_return.beta for exp_return in self.user_data])
+        betas = np.array([security.beta for security in self.securities])
         a = np.array([betas, ones])
         b = np.array([target_beta, 1])
         weights = np.linalg.solve(a,b)

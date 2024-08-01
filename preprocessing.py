@@ -5,7 +5,7 @@ def data_preprocessing(data, start, end):
     select = data.loc[end:start]
     return select
 
-def correlation_table(data, tickers):
+def correlation_table(securities):
     aggerated = {}
     for i in range(len(data)):
         df = data[i]

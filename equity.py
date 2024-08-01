@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 
 class Security:
@@ -9,9 +8,9 @@ class Security:
 
 class Equity(Security):
     def __init__(self, data:None) -> None:
-        self.raw_data = data
+        self.raw_data = data["raw_data"]
         self.data_source = str
-        self.ticker = str
+        self.ticker = data["ticker"]
         self.full_name = str
         self.description = str
         self.sector = str
