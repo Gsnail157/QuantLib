@@ -4,7 +4,7 @@ Quantitative Finance Web App
 ## TO-DO
 Backend:
 - ~Risk Free Rate API~
-- Implement new Data Source API
+- ~Implement new Data Source API~
 - Database Setup (Postgres)
 - ~Sharpe Ratio~
 - Create SQL queries

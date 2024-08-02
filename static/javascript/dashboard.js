@@ -79,3 +79,20 @@ function getRowValues() {
     };
     return row_values;
 };
+
+document.getElementById("add_port").addEventListener("click", ()=> {
+    let portfolio_list = document.getElementById("port_list")
+    let new_port = document.createAttribute("div")
+    let name_box = document.createAttribute("input")
+
+    name_box.type = "text"
+    name_box.className = "port_name"
+    name_box.placeholder = "Enter Portfolio Name..."
+
+
+    new_port.className = "port_item"
+    new_port.id = "port_item"
+
+    new_port.append(name_box)
+    portfolio_list.append(new_port)
+})

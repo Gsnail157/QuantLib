@@ -38,3 +38,21 @@ body {
 .table {
     margin-bottom: 100px;
 }
+
+.add_port {
+    background-color: lightblue;
+    height: 50px;
+    width: 100px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+}
+
+.add_port:hover {
+    color: grey;
+    border: 1px solid gray;
+}
+
+.port_item {
+    background-color: lightgrey;
+}

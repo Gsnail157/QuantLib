@@ -20,7 +20,7 @@ from utils.preprocessing import data_preprocessing
 load_dotenv()
 app = Flask(__name__)
 
-valid_data_source = ["Alpha Vantage"]
+valid_data_source = ["Alpha Vantage", "Market Stack", "FRED", "EODHD"]
 
 # KEYS
 db_url = os.getenv("RENDER_POSTGRES_URL")
@@ -107,7 +107,6 @@ def calculate():
         "yearly": yearly_expected_return,
         "weights": new_weights
     }
-
     return Response(f"{res}", status=200, mimetype='application/json')
 
 @app.get("/target_return")
@@ -156,7 +155,6 @@ def target_return():
         "Expected Return": target_rtn,
         "Security Info": port_info
     }
-
     return Response(f"{res}", status=200, mimetype='application/json')
 
 if __name__ == "__main__":
