@@ -81,18 +81,32 @@ function getRowValues() {
 };
 
 document.getElementById("add_port").addEventListener("click", ()=> {
-    let portfolio_list = document.getElementById("port_list")
-    let new_port = document.createAttribute("div")
-    let name_box = document.createAttribute("input")
+    let portfolio_list = document.getElementById("port_list");
+    let new_port = document.createElement("div");
+    let name_box = document.createElement("input");
+    let drop_down = document.createElement("i");
+    let delete_button = document.createElement("i");
+    // let drop_down_div = document.createElement("div")
 
-    name_box.type = "text"
-    name_box.className = "port_name"
-    name_box.placeholder = "Enter Portfolio Name..."
+    name_box.type = "text";
+    name_box.className = "port_name";
+    name_box.placeholder = "Enter Portfolio Name...";
 
+    new_port.className = "port_item";
+    new_port.id = "port_item";
 
-    new_port.className = "port_item"
-    new_port.id = "port_item"
+    drop_down.className = "fa-solid fa-circle-chevron-down"
+    drop_down.style =  "margin-left: 50px;"
 
-    new_port.append(name_box)
-    portfolio_list.append(new_port)
+    delete_button.className = "fa-solid fa-x"
+    delete_button.style = "margin-left: 900px;"
+    delete_button.onclick = () => {
+        new_port.remove();
+    }
+
+    // drop_down_div.append(drop_down)
+    new_port.append(drop_down);
+    new_port.append(name_box);
+    new_port.append(delete_button);
+    portfolio_list.append(new_port);
 })

@@ -23,14 +23,13 @@ app = Flask(__name__)
 valid_data_source = ["Alpha Vantage", "Market Stack", "FRED", "EODHD"]
 
 # KEYS
-db_url = os.getenv("RENDER_POSTGRES_URL")
+DB_URL = os.getenv("RENDER_POSTGRES_URL")
 FREDAPI_KEY = os.getenv("FRED")
 ALPHAVANTAGE_KEY = os.getenv("ALPHAVANTAGE")
 MARKETSTACK_KEY = os.getenv("MARKETSTACK")
 EODHD_KEY = os.getenv("EODHD")
 
 # Create API Instances
-# db_url = os.getenv("RENDER_POSTGRES_URL")
 # db = psycopg2.connect(db_url)
 
 # if db:
@@ -45,6 +44,9 @@ eodhd = EODhd(EODHD_KEY)
 
 @app.route('/')
 def main():
+    '''
+    Home Page
+    '''
     return render_template("dashboard/dashboard.html")
 
 @app.get("/calculate")
